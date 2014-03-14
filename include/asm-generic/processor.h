@@ -1,7 +1,7 @@
 /*
  * include/asm-generic/processor.h
  *
- * Copyright (c) 2014 The XPerience Project. All rights reserved.
+ * Copyright (c) 2014 NVIDIA Corporation. All rights reserved.
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
  * may be copied, distributed, and modified under those terms.
@@ -15,7 +15,13 @@
 #ifndef _ASM_GENERIC_PROCESSOR_H_
 #define _ASM_GENERIC_PROCESSOR_H_
 
-#include <asm-generic/relaxed.h>
+#ifndef cpu_relaxed_read
+#define cpu_relaxed_read(p) (*(p))
+#endif
+
+#ifndef cpu_relaxed_read_long
+#define cpu_relaxed_read_long(p) (*(p))
+#endif
 
 #ifndef cpu_read_relax
 #define cpu_read_relax() cpu_relax()
