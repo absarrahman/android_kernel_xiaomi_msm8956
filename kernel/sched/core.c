@@ -6449,8 +6449,8 @@ int idle_cpu_relaxed(int cpu)
 {
       struct rq *rq = cpu_rq(cpu);
 
-      if (cpu_relaxed_read_long(&rq->curr) != rq->idle)
-             return 0;
+	if (cpu_relaxed_read_long(&rq->curr) != (u64)rq->idle)
+		return 0;
 
       if (cpu_relaxed_read_long(&rq->nr_running))
              return 0;
