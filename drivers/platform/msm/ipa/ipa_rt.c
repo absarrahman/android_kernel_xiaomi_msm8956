@@ -1334,6 +1334,8 @@ int ipa_get_rt_tbl(struct ipa_ioc_get_rt_tbl *lookup)
 
 		result = 0;
 	}
+
+ret:
 	mutex_unlock(&ipa_ctx->lock);
 
 	return result;
