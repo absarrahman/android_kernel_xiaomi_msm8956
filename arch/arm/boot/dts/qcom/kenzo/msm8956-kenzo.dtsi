@@ -22,7 +22,7 @@
 	interrupt-parent = <&intc>;
 
 	chosen {
-		bootargs = "sched_enable_hmp=1 sched_enable_power_aware=1";
+		bootargs = "boot_cpus=0,1,2,3,4,5 sched_enable_hmp=1 sched_enable_power_aware=1";
 	};
 
 	aliases {
@@ -836,6 +836,8 @@
 		qcom,bcl-freq-control-list = <&CPU4 &CPU5>;
 		/delete-property/qcom,bcl-hotplug-list;
 		/delete-property/qcom,bcl-soc-hotplug-list;
+		/delete-property/ qcom,bcl-hotplug-list;
+		/delete-property/ qcom,bcl-soc-hotplug-list;
 		qcom,ibat-monitor {
 			qcom,high-threshold-uamp = <4200000>;
 			qcom,low-threshold-uamp = <3400000>;
