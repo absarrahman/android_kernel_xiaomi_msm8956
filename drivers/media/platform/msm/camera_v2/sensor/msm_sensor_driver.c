@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2015,2017 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
  * Copyright (C) 2016 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -756,29 +756,20 @@ int32_t msm_sensor_driver_probe(void *setting,
 		}
 	}
 
-#ifdef CONFIG_MACH_XIAOMI_HYDROGEN
-	if (strncmp(slave_info->eeprom_name, "dw9763", strlen("dw9763")) == 0) {
-		hydrogen_get_back_sensor_name(hydrogen_back_sensor_name);
-		CDBG("slave_info sensor_name = %s, back_sensor_name - %s\n",
-			slave_info->sensor_name, hydrogen_back_sensor_name);
-		if (strcmp(slave_info->sensor_name, hydrogen_back_sensor_name) != 0) {
-			pr_err("%s %d: hydrogen back sensor name not match!\n", __func__, __LINE__);
-			rc = -EFAULT;
-			goto free_slave_info;
-		}
+	if (strlen(slave_info->sensor_name) >= MAX_SENSOR_NAME ||
+		strlen(slave_info->eeprom_name) >= MAX_SENSOR_NAME ||
+		strlen(slave_info->actuator_name) >= MAX_SENSOR_NAME ||
+		strlen(slave_info->ois_name) >= MAX_SENSOR_NAME) {
+		pr_err("failed: name len greater than 32.\n");
+		pr_err("sensor name len:%zu, eeprom name len: %zu.\n",
+			strlen(slave_info->sensor_name),
+			strlen(slave_info->eeprom_name));
+		pr_err("actuator name len: %zu, ois name len:%zu.\n",
+			strlen(slave_info->actuator_name),
+			strlen(slave_info->ois_name));
+		rc = -EINVAL;
+		goto free_slave_info;
 	}
-
-	if (strncmp(slave_info->eeprom_name, "s5k5e8", strlen("s5k5e8")) == 0) {
-		hydrogen_get_front_sensor_name(hydrogen_front_sensor_name);
-		CDBG("slave_info sensor_name = %s, front_sensor_name - %s\n",
-			slave_info->sensor_name, hydrogen_front_sensor_name);
-		if (strcmp(slave_info->sensor_name, hydrogen_front_sensor_name) != 0) {
-			pr_err("%s %d: hydrogen front sensor name not match!\n", __func__, __LINE__);
-			rc = -EFAULT;
-			goto free_slave_info;
-		}
-	}
-#endif
 
 	/* Print slave info */
 	CDBG("camera id %d Slave addr 0x%X addr_type %d\n",
