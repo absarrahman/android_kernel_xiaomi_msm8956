@@ -574,8 +574,8 @@ int __init lazyplug_init(void)
 
 
 	state_notifier_hook.notifier_call = state_notifier_call;
-	if (state_register_client(&state_notifier_hook))
-		pr_info("%s state_notifier hook create failed!\n", __FUNCTION__);
+	//if (state_register_client(&state_notifier_hook))
+		//pr_info("%s state_notifier hook create failed!\n", __FUNCTION__);
 
 
 	lazyplug_wq = alloc_workqueue("lazyplug",
