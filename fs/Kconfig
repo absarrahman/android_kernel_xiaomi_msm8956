@@ -96,7 +96,6 @@ menu "DOS/FAT/exFAT/NT Filesystems"
 source "fs/fat/Kconfig"
 source "fs/exfat/Kconfig"
 source "fs/ntfs/Kconfig"
-source "fs/sdfat/Kconfig"
 
 endmenu
 endif # BLOCK
